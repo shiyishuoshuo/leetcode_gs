@@ -17,11 +17,9 @@ class RandomizedSet:
             return False
         index_to_remove = self.valToIndex[val]
         last_element = self.numbers[-1]
-        if index_to_remove == n - 1:
-            self.removeLastElement(val)
-            return True
-        self.numbers[index_to_remove] = last_element
-        self.valToIndex[last_element] = index_to_remove
+        if index_to_remove != n - 1:
+            self.numbers[index_to_remove] = last_element
+            self.valToIndex[last_element] = index_to_remove
         self.removeLastElement(val)
         return True
 

@@ -4,7 +4,7 @@ class Solution:
 
         memo = [[-1] * p_len for _ in range(s_len)]
 
-        def dp(i: int, s: str, j: int, p: str) -> bool:
+        def dp(i: int, j: int) -> bool:
             if j == p_len:
                 return i == s_len
 
@@ -23,16 +23,16 @@ class Solution:
 
             if p[j] in [s[i], "."]:
                 if j < p_len - 1 and p[j + 1] == "*":
-                    res = dp(i, s, j + 2, p) or dp(i + 1, s, j, p)
+                    res = dp(i, j + 2) or dp(i + 1, j)
                 else:
-                    res = dp(i + 1, s, j + 1, p)
+                    res = dp(i + 1, j + 1)
             else:
                 if j < p_len - 1 and p[j + 1] == "*":
-                    res = dp(i, s, j + 2, p)
+                    res = dp(i, j + 2)
                 else:
                     res = False
 
             memo[i][j] = 1 if res else 0
             return res
 
-        return dp(0, s, 0, p)
+        return dp(0, 0)

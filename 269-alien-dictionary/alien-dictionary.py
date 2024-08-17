@@ -1,6 +1,6 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        adj = defaultdict(set)
+        adj = defaultdict(list)
         # make sure you understand dictionary compression here
         in_degrees = Counter({c : 0 for word in words for c in word})
         
@@ -8,8 +8,9 @@ class Solution:
             for first_char, second_char in zip(first_word, second_word):
                 if first_char != second_char:
                     if second_char not in adj[first_char]:
-                        adj[first_char].add(second_char)
+                        adj[first_char].append(second_char)
                         in_degrees[second_char] += 1
+                    # don't forget break here because all we need was to find one possible solution
                     break
             else:
                 if len(second_word) < len(first_word):

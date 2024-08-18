@@ -21,7 +21,6 @@ class Solution {
     }
 
     private int leftBound(int low, int high, int target) {
-        System.out.println(this.prefixSum);
         while (low < high) {
             int mid = (high - low) / 2 + low;
             if (this.prefixSum[mid] == target) {

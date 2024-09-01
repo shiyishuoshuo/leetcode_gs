@@ -11,7 +11,7 @@ class Solution:
         while x:
             next_x, digit = divmod(x, 10)
 
-            if (res > MAX // 10) or (res == MAX // 10 and digit > MAX % 10):
+            if (res > MAX // 10) or (res == MAX // 10 and digit >= MAX % 10):
                 return 0
 
             res = (res * 10) + digit 

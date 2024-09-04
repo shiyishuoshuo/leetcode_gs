@@ -5,11 +5,11 @@ class Solution:
 
         count_s = Counter(s)
         for c in t:
-            if c not in s:
-                return False
             count_s[c] -= 1
+            if count_s[c] < 0:
+                return False
 
-        return not any([ True for cnt in count_s.values() if cnt != 0])
+        return True
         
 
 

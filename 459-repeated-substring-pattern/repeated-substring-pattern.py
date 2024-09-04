@@ -1,14 +1,10 @@
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
         
-        n = len(s)
+        double_s = s + s
 
-        for i in range(1, n // 2 + 1):
-            if n % i == 0:
-                pattern = s[:i] * (n // i)
-                if pattern == s:
-                    return True
-        
-        return False
+        index_s = double_s.index(s, 1)
+
+        return index_s < len(s)
 
         

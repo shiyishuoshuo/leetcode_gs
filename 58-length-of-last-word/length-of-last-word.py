@@ -9,7 +9,6 @@ class Solution:
                 break
             first_non_empty_index -= 1
 
-        print(f'{first_non_empty_index}')
         while first_non_empty_index > -1:
             if s[first_non_empty_index] == ' ':
                 break

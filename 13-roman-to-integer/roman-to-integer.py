@@ -8,23 +8,17 @@ class Solution:
             "L": 50,
             "C": 100,
             "D": 500,
-            "M": 1000,
-            "IV": 4,
-            "IX": 9,
-            "XL": 40,
-            "XC": 90,
-            "CD": 400,
-            "CM": 900,
+            "M": 1000
         }
-        i, res = 0 , 0
+        prev, res =  map[s[-1]] , map[s[-1]]
 
-        while i < n:
-            if i < n - 1 and s[i:i+2] in map:
-                res += map[s[i:i+2]]
-                i += 2
+        for i in range(n - 2, -1, -1):
+            current = map[s[i]]
+            if current < prev:
+                res -= current
             else:
-                res += map[s[i]]
-                i += 1
+                res += current
+            prev = current
 
         return res
 

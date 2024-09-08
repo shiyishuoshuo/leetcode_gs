@@ -1,13 +1,7 @@
 class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int:
-        nums = sorted(nums)
-        prev_one, prev_two = nums[0], nums[1]
-        res = 0
-        for i in range(2, len(nums)):
-            cur = nums[i]
-            if prev_one + prev_two > cur:
-                res = max(res, cur + prev_one + prev_two)
-            prev_one = prev_two
-            prev_two = cur
-
-        return res
+    def largestPerimeter(self, A: List[int]) -> int:
+        A.sort()
+        for i in range(len(A) - 3, -1, -1):
+            if A[i] + A[i+1] > A[i+2]:
+                return A[i] + A[i+1] + A[i+2]
+        return 0

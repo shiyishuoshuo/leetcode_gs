@@ -1,17 +1,59 @@
+class Bucket:
+    def __init__(self):
+        self.bucket = []
+
+    def update(self, key: int, val: int):
+        found = False
+        for i, kv in enumerate(self.bucket):
+            existing_key, exisiting_value = kv
+            if existing_key == key:
+                self.bucket[i] = (key, val)
+                found = True
+                break
+        
+        if not found:
+            self.bucket.append((key, val))
+
+    def get(self, key:int) -> int:
+        for (k, v) in self.bucket:
+            if k == key:
+                return v
+        return -1
+
+    def remove(self, key:int):
+        for i, kv in enumerate(self.bucket):
+            if key == kv[0]:
+                del self.bucket[i]
+    
+
+
+
 class MyHashMap:
 
     def __init__(self):
-        self.buckets  = [[] for i in range(25)]
-        n_buckets = len(self.buckets)
-        self.bucket_number_fn = lambda key: key % n_buckets 
+        self.key_space = 2069
+        self.hash_table = [Bucket() for _ in range(self.key_space)]
+        
 
     def put(self, key: int, value: int) -> None:
-        self.remove(key)
-        self.buckets[self.bucket_number_fn(key)].append((key, value))
+        hash_key = key % self.key_space
+        self.hash_table[hash_key].update(key, value)
+        
 
     def get(self, key: int) -> int:
-        return next(map(lambda e: e[1], filter(lambda e: e[0] == key, self.buckets[self.bucket_number_fn(key)])), -1)
+        hash_key = key % self.key_space
+        return self.hash_table[hash_key].get(key)
+
+        
 
     def remove(self, key: int) -> None:
-        bucket_number = self.bucket_number_fn(key)
-        self.buckets[bucket_number] = list(filter(lambda e: e[0] != key, self.buckets[bucket_number]))
+        hash_key = key % self.key_space
+        self.hash_table[hash_key].remove(key)
+        
+
+
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)

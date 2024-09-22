@@ -9,8 +9,8 @@ class Solution:
 
             # top left to right 
             if upper_bound <= lower_bound:
-                for i in range(left_bound, right_bound + 1):
-                    res.append(matrix[upper_bound][i])
+                for j in range(left_bound, right_bound + 1):
+                    res.append(matrix[upper_bound][j])
                 upper_bound += 1
             
             if left_bound <= right_bound:

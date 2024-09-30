@@ -3,7 +3,7 @@ class Solution:
         slow, fast = 0, 0
         
         while fast < len(nums):
-            if fast > 0 and nums[fast] != nums[fast - 1]:
+            if nums[fast] != nums[slow]:
                 slow += 1
                 nums[slow] = nums[fast]
             fast += 1

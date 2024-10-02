@@ -11,7 +11,7 @@ class Solution:
                 start = i + 1
                 tank = 0
         
-        return 0 if start == n else start
+        return start % n
 
         
         

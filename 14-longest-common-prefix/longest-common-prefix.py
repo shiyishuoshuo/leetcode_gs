@@ -10,7 +10,7 @@ class Solution:
                 low = middle + 1
             else:
                 high = middle - 1
-        return strs[0][: low - 1]
+        return strs[0][: high]
 
     def isCommonPrefix(self, strs, l):
         str1 = strs[0][:l]

@@ -21,7 +21,8 @@ class Solution:
         for val, sym in sym_val_map.items():
             if num == 0:
                 break
-            print(f'{val}')
+            if val > num:
+                continue
             count, num = divmod(num, val)
             res.append(sym * count)
         return ''.join(res)

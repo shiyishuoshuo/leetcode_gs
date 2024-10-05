@@ -1,29 +1,21 @@
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        n = len(strs)
-        strs = sorted(strs, key = lambda x: len(x))
+        if not strs:
+            return ""
+        minLen = min(len(x) for x in strs)
+        low, high = 1, minLen
+        while low <= high:
+            middle = (low + high) // 2
+            if self.isCommonPrefix(strs, middle):
+                low = middle + 1
+            else:
+                high = middle - 1
+        return strs[0][: low - 1]
 
-        if len(strs) == 1:
-            return strs[0]
-        
-        word = strs[0]
-
-        res = ''
-
-        i = 1
-        outer_loop_done = False
-        while i < len(word) + 1:
-            prefix = word[0:i]
-
-            for j in range(1, n):
-                if prefix not in strs[j][0:i]:
-                    outer_loop_done = True
-                    break
-            if outer_loop_done:
-                break
-            res = prefix
-            i += 1
-        
-        return res
-
+    def isCommonPrefix(self, strs, l):
+        str1 = strs[0][:l]
+        for i in range(1, len(strs)):
+            if not strs[i].startswith(str1):
+                return False
+        return True
         

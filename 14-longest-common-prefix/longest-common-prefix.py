@@ -1,21 +1,45 @@
-class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
-        if not strs:
-            return ""
-        minLen = min(len(x) for x in strs)
-        low, high = 1, minLen
-        while low <= high:
-            middle = (low + high) // 2
-            if self.isCommonPrefix(strs, middle):
-                low = middle + 1
-            else:
-                high = middle - 1
-        return strs[0][: high]
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+        self.linkedCount = 0
 
-    def isCommonPrefix(self, strs, l):
-        str1 = strs[0][:l]
+    def addChild(self, char):
+        if char not in self.children:
+            self.children[char] = TrieNode()
+            self.linkedCount += 1
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insertWord(self, word):
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.addChild(c)
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def searchLongestCommonPrefix(self, word) -> str:
+        node = self.root
+        res = []
+        for char in word:
+            if char in node.children and node.linkedCount == 1 and not node.endOfWord:
+                res.append(char)
+                node = node.children[char]  
+            else:
+                break
+        return ''.join(res)
+
+class Solution:
+
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        trieTree = Trie()
+        if len(strs) == 1:
+            return strs[0]
         for i in range(1, len(strs)):
-            if not strs[i].startswith(str1):
-                return False
-        return True
+            trieTree.insertWord(strs[i])
+        return trieTree.searchLongestCommonPrefix(strs[0])
+        
         

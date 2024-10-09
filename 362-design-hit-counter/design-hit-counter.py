@@ -1,23 +1,35 @@
-from collections import deque
 class HitCounter:
-    """
-    We maintain a queue for this problem. The init and hit (append) method are quite straightforward. 
-    The main operation is performed in getHits.
-    In getHits, we keep popping elements from the queue (while queue exists), only if the difference
-    between the current timestamp and the first element of the queue is greater than or equal to 300.
-    What this does is that the queue would remove all elements that have timestamp difference of more 
-    than or equal to 300. What we are left is the queue with the closest 300 timestamps to the current
-    timestamp. If we encounter a difference of less than 300, then this operation stops. Finally, the 
-    length of the queue is the number of "hits" at the current timestamp.
-    """
+
     def __init__(self):
         self.queue = deque()
+        self.total = 0
+        
 
     def hit(self, timestamp: int) -> None:
-        self.queue.append(timestamp)
+        if not self.queue or self.queue[0][0] != timestamp:
+            self.queue.append((timestamp, 1))
+        else:
+            prev_total = self.queue[-1][1]
+            self.queue.pop()
+            self.queue.append((timestamp, prev_total + 1))
+        self.total += 1
+
+        
 
     def getHits(self, timestamp: int) -> int:
-        while self.queue and timestamp - self.queue[0] >= 300:
-            self.queue.popleft()
+        while(self.queue):
+            diff = timestamp - self.queue[0][0]
+            if diff >= 300:
+                self.total -= self.queue[0][1]
+                self.queue.popleft()
+            else:
+                break
             
-        return len(self.queue)
+        return self.total
+        
+
+
+# Your HitCounter object will be instantiated and called as such:
+# obj = HitCounter()
+# obj.hit(timestamp)
+# param_2 = obj.getHits(timestamp)

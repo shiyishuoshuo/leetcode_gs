@@ -1,55 +1,86 @@
+class ListNode:
+    def __init__(self, val: int):
+        self.val = val
+        self.next = None
+        self.prev = None
+
 class MyCircularDeque:
 
     def __init__(self, k: int):
-        self.q = []
-        self.k = k
+        self.size = 0
+        self.capacity = k
+        self.head = ListNode(-1)
+        self.tail = ListNode(-1)
         
+
     def insertFront(self, value: int) -> bool:
-        if len(self.q) < self.k:
-            self.q = [value] + self.q
-            # self.q.appendleft(value) #push in front if using deque
-            return True
-        return False
+        if self.isFull():
+            return False
+        newNode = ListNode(value)
+        if self.isEmpty():
+            self.head, self.tail = newNode, newNode
+        else:    
+            newNode.next = self.head
+            self.head.prev = newNode
+            self.head = newNode
+        self.size += 1
+        return True
+        
+        
 
     def insertLast(self, value: int) -> bool:
-        if len(self.q) < self.k:
-            self.q.append(value) #push in last
-            return True
-        return False
-        
+        if self.isFull():
+            return False
+        newNode = ListNode(value)
+        if self.isEmpty():
+            self.head, self.tail = newNode, newNode
+        else:    
+            self.tail.next = newNode
+            newNode.prev = self.tail
+            self.tail = newNode
+        self.size += 1
+        return True
+
     def deleteFront(self) -> bool:
-        if len(self.q) > 0:
-            self.q.pop(0)
-            return True
-        return False
+        if self.isEmpty():
+            return False
+        newHead = self.head.next
+        self.head.next = None
+        if newHead:
+            newHead.prev = None
+        self.head = newHead
+        self.size -= 1
+        return True
+        
 
     def deleteLast(self) -> bool:
-        if len(self.q) > 0:
-            self.q.pop()
-            return True
-        return False
+        if self.isEmpty():
+            return False
+        preTail = self.tail.prev
+        if preTail:
+            preTail.next = None
+        self.tail.prev = None
+        self.tail = preTail
+        self.size -= 1
+        return True
 
     def getFront(self) -> int:
-        if len(self.q) > 0:
-            front = self.q[0]
-            return front
-        return -1
+        if self.isEmpty():
+            return -1
+        return self.head.val
+        
 
     def getRear(self) -> int:
-        if len(self.q) > 0:
-            last = self.q[-1]
-            return last
-        return -1
-        
+        if self.isEmpty():
+            return -1
+        return self.tail.val
+
     def isEmpty(self) -> bool:
-        if len(self.q) == 0:
-            return True
-        return False
+        return self.size < 1
         
+
     def isFull(self) -> bool:
-        if len(self.q) == self.k:
-            return True
-        return False
+        return self.capacity == self.size
         
 
 

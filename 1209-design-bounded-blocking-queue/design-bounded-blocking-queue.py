@@ -28,7 +28,7 @@ class BoundedBlockingQueue(object):
         self.count -= 1
         if self.count > 0:
             self.de_lock.release()
-        if val and self.en_lock.locked():
+        if self.en_lock.locked():
             self.en_lock.release()
         return val
 

@@ -26,7 +26,7 @@ class TimeMap:
             else:
                 right = mid - 1
 
-        return "" if left == 0  else self.map[key][left - 1][1]
+        return "" if right == -1 else self.map[key][right][1]
             
         
 

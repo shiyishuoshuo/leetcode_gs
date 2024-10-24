@@ -13,8 +13,7 @@ class Solution:
 
             while cur_num + 1 in sequence_set:
                 cur_count += 1
-                cur_num += 1
-            
+                cur_num += 1       
             res = max(res, cur_count)
         
         return res

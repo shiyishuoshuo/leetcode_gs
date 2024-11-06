@@ -23,7 +23,6 @@ class Solution:
                         low += 1
                     elif two_sum > target:
                         high -= 1
-                return res
             elif n > 2:
                 for i in range(start, length):
                     if i > start and nums[i] == nums[i - 1]:
@@ -33,6 +32,6 @@ class Solution:
                         pair.append(nums[i])
                         res.append(pair)
 
-                return res
+            return res
 
         return nSum(0, 0, 3)

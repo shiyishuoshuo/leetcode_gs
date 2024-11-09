@@ -1,9 +1,17 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        dp = [0] * len(nums)
-        dp[0] = max_subArray = nums[0]
-        for i in range(1, len(nums)):
-            dp[i] = max(dp[i - 1] + nums[i], nums[i])
-            max_subArray = max(max_subArray, dp[i])
-        return max_subArray
+
+        @cache
+        def maxSubArrayHelper(index: int) -> int:
+            if index - 1 < 0:
+                return nums[index]
+            return max(maxSubArrayHelper(index - 1) + nums[index], nums[index])
+
+        res, n = nums[0], len(nums)
+
+        for i in range(n - 1, -1, -1):
+            res = max(res, maxSubArrayHelper(i))
+        return res
+        
+        
         

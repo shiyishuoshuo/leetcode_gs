@@ -8,8 +8,9 @@ class Solution:
         while right < s_len:
             d = s[right]
             s_counter[d] += 1
+            right += 1
 
-            if right - left >= p_len:
+            if left < right and right - left - 1 >= p_len:
                 c = s[left]
                 if c in s_counter:
                     s_counter[c] -= 1
@@ -20,7 +21,6 @@ class Solution:
             if s_counter == p_counter:
                 anagram_results.append(left)
             
-            right += 1
 
         return anagram_results
             

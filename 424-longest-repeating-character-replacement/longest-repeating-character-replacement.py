@@ -14,8 +14,8 @@ class Solution:
             while left < right and right - left - max_f > k:
                 c = s[left]
                 window[c] -= 1
-                if window[c] == 0:
-                    del window[c]
+                # if window[c] == 0:
+                #     del window[c]
                 left += 1
             
             res = max(res, right - left)

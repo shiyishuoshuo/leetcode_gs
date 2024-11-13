@@ -32,8 +32,7 @@ class Solution:
         window_size = 0
 
         while right < num_len:
-            d = nums[right]
-            window.push(d)
+            window.push(nums[right])
             right += 1
 
             while left < right and window.max() - window.min() > limit:

@@ -14,9 +14,7 @@ class MinStack:
         valTobePop = self.top()
         if valTobePop == self.min_stk[-1]:
             self.min_stk.pop()
-        self.stk.pop()
-        return valTobePop
-        
+        self.stk.pop()        
 
     def top(self) -> int:
         return self.stk[-1]

@@ -10,7 +10,7 @@ class Solution:
             s_counter[d] += 1
             right += 1
 
-            if left < right and right - left - 1 >= p_len:
+            if left < right and (right - left - 1) == p_len:
                 c = s[left]
                 if c in s_counter:
                     s_counter[c] -= 1

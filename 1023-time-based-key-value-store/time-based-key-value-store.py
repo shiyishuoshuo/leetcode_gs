@@ -15,8 +15,8 @@ class TimeMap:
         if key not in self.map:
             return res
 
-        if timestamp < self.map[key][0][0]:
-            return res
+        # if timestamp < self.map[key][0][0]:
+        #     return res
         
         left, right = 0, len(self.map[key]) - 1
         while left <= right:

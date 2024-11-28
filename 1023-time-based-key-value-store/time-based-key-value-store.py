@@ -21,14 +21,11 @@ class TimeMap:
         left, right = 0, len(self.map[key]) - 1
         while left <= right:
             mid = left + (right - left) // 2
-            if self.map[key][mid][0] < timestamp:
-                res = self.map[key][mid][1]
+            if self.map[key][mid][0] <= timestamp:
                 left = mid + 1
-            elif self.map[key][mid][0] == timestamp:
-                return self.map[key][mid][1]
             else:
                 right = mid - 1
-        return res
+        return self.map[key][right][1] if right >= 0 else ""
             
         
 

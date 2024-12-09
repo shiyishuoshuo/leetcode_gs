@@ -3,7 +3,7 @@ class Solution:
         A, B = nums1, nums2
         total = len(A) + len(B)
         half = total // 2
-        INF, _INF = float("inf"), float("-inf")
+        INF, N_INF = float("inf"), float("-inf")
 
         if len(A) > len(B):
             A, B = B, A
@@ -14,9 +14,9 @@ class Solution:
             i = l + (r - l) // 2
             j = half - i - 2
 
-            leftA = A[i] if i >= 0 else _INF
+            leftA = A[i] if i >= 0 else N_INF
             rightA = A[i + 1] if (i + 1) < len(A) else INF
-            leftB = B[j] if j >= 0 else _INF
+            leftB = B[j] if j >= 0 else N_INF
             rightB = B[j + 1] if (j + 1) < len(B) else INF
 
             if leftA <= rightB and leftB <= rightA:

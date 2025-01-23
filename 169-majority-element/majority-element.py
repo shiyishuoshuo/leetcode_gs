@@ -4,11 +4,15 @@ class Solution:
         for num in nums:
             if count == 0:
                 target = num
-                count = 1
-            elif num != target:
-                count -= 1
-            elif num == target:
+            
+            if num == target:
                 count += 1
+            else:
+                count -= 1
+            # elif num != target:
+            #     count -= 1
+            # elif num == target:
+            #     count += 1
         
         return target
 

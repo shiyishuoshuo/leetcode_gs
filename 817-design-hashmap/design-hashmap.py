@@ -1,59 +1,30 @@
-class Bucket:
+class MyHashMap:
+
     def __init__(self):
-        self.bucket = []
+        self.n = 1009  # A prime number for better distribution
+        self.buckets = [[] for _ in range(self.n)]
 
-    def update(self, key: int, val: int):
-        found = False
-        for i, kv in enumerate(self.bucket):
-            existing_key, exisiting_value = kv
-            if existing_key == key:
-                self.bucket[i] = (key, val)
-                found = True
-                break
-        
-        if not found:
-            self.bucket.append((key, val))
+    def put(self, key: int, value: int) -> None:
+        index = key % self.n
+        bucket = self.buckets[index]
+        for i in range(len(bucket)):
+            if bucket[i][0] == key:
+                bucket[i][1] = value
+                return
+        bucket.append([key, value])
 
-    def get(self, key:int) -> int:
-        for (k, v) in self.bucket:
+    def get(self, key: int) -> int:
+        index = key % self.n
+        bucket = self.buckets[index]
+        for k, v in bucket:
             if k == key:
                 return v
         return -1
 
-    def remove(self, key:int):
-        for i, kv in enumerate(self.bucket):
-            if key == kv[0]:
-                del self.bucket[i]
-    
-
-
-
-class MyHashMap:
-
-    def __init__(self):
-        self.key_space = 2069
-        self.hash_table = [Bucket() for _ in range(self.key_space)]
-        
-
-    def put(self, key: int, value: int) -> None:
-        hash_key = key % self.key_space
-        self.hash_table[hash_key].update(key, value)
-        
-
-    def get(self, key: int) -> int:
-        hash_key = key % self.key_space
-        return self.hash_table[hash_key].get(key)
-
-        
-
     def remove(self, key: int) -> None:
-        hash_key = key % self.key_space
-        self.hash_table[hash_key].remove(key)
-        
-
-
-# Your MyHashMap object will be instantiated and called as such:
-# obj = MyHashMap()
-# obj.put(key,value)
-# param_2 = obj.get(key)
-# obj.remove(key)
+        index = key % self.n
+        bucket = self.buckets[index]
+        for i in range(len(bucket)):
+            if bucket[i][0] == key:
+                del bucket[i]
+                return
